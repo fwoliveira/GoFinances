@@ -55,3 +55,9 @@ export const Icon =styled(Feather)`
      color: ${({theme}) => theme.colors.Orange};
      font-size: ${RFValue(24)}px;
 `;
+
+export const HighlightCards = styled.View`
+    flex-direction: row;
+    
+`
+
