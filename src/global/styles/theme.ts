@@ -6,7 +6,7 @@ export default{
     colors:{
         blue: '#5636D3',
 
-        Oorange: '#FF872C',
+        Orange: '#FF872C',
         orange_light:'rgba(255,135,44,0.3)',
 
         green:'#12A454',
