@@ -1,6 +1,11 @@
 import styled from 'styled-components/native';
 import{ Feather } from '@expo/vector-icons'
 import {RFPercentage,RFValue} from 'react-native-responsive-fontsize'
+// npm i react-native-iphone-x-helper --save
+// import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+
+
+
 export const Container =styled.View`
 flex:1;
 
@@ -49,15 +54,27 @@ export const UserWrapper = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: ${RFValue(57)}px;
+    margin-top: ${RFValue(58)}px;
+    /* margin-top:  $(getStatusBarHeight) + ${RFPercentage(58)}px; */
+    /* para iphone */
 `;
 export const Icon =styled(Feather)`
      color: ${({theme}) => theme.colors.Orange};
      font-size: ${RFValue(24)}px;
+     
 `;
 
-export const HighlightCards = styled.View`
+export const HighlightCards = styled.ScrollView.attrs({
+    horizontal:true ,
+    showsHorizontalScrollIndicator: false,
+    contentContainerStyle:{paddingLeft:24}
+})`
     flex-direction: row;
+    width:100%;
+    position: absolute;
+     margin-top:${RFPercentage(24)}px; 
+   
+
     
 `
 
