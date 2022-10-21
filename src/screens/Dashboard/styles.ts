@@ -3,6 +3,8 @@ import{ Feather } from '@expo/vector-icons'
 import {RFPercentage,RFValue} from 'react-native-responsive-fontsize'
 // npm i react-native-iphone-x-helper --save
 // import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+import { FlatList } from 'react-native';
+import { DataListProps } from './index';
 
 
 
@@ -92,4 +94,8 @@ export const  Title = styled.Text`
 export const  TransactionsList = styled.FlatList.attrs({
     showsVerticalScrollIndicator: false
 })``;
+
+// export const  TransactionsList = styled(FlatList as new ()=> FlatList<DataListProps>).attrs({
+//     showsVerticalScrollIndicator: false
+// })``;
 
