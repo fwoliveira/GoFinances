@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { TextInput } from 'react-native';
+
 import { TouchableOpacity } from 'react-native';
 
-export const Container = styled(TextInput).attrs(({theme}) => ({
-    placeholderTextColor: theme.colors.orange,
+export const Container = styled(TouchableOpacity).attrs(({theme}) => ({
+  placeholderTextColorColor: theme.colors.text,
 }))`
   width: 100%;
   padding: 18px;

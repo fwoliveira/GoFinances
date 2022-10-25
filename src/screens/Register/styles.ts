@@ -31,3 +31,10 @@ export const Input = styled.View`
 
 
 `;
+export const Fields = styled.View``;
+
+export const TransactionTypes = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 16px;
+`;
