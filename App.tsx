@@ -2,8 +2,6 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import * as SplashScreen from 'expo-splash-screen'
-import { Register } from './src/screens/Register';
-// import { Dashboard } from './src/screens/Dashboard';
 import theme from './src/global/styles/theme';
 import {
   useFonts,
@@ -12,6 +10,8 @@ import {
   Poppins_700Bold
 }from '@expo-google-fonts/poppins'
 SplashScreen.preventAutoHideAsync();
+import { NavigationContainer } from '@react-navigation/native';
+import { AppRoutes } from './src/routes/app.routes';
 export default function App() {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -24,7 +24,9 @@ export default function App() {
   
   return (
     <ThemeProvider theme={theme}>
-      <Register/>
+      <NavigationContainer>
+      <AppRoutes/>
+      </NavigationContainer>
     </ThemeProvider>
   );
 }

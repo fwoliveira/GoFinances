@@ -68,7 +68,7 @@ export function Dashboard() {
 
             <UserInfo>
               <Photo 
-                source={ {uri:'https://avatars.githubusercontent.com/u/37640000?v=4'} }
+                source={ {uri:'https://avatars.githubusercontent.com/u/91294303?v=4'} }
               />
               <User>
                 <UserGreething>Olá,</UserGreething>
