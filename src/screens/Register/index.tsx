@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { Alert, Modal } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, Modal, Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import uuid from 'react-native-uuid';
+import { useNavigation, NavigationProp, ParamListBase, } from '@react-navigation/native';
 import * as Yup from "yup";
 import { InputForm } from '../../components/Form/InputForm';
 
@@ -40,11 +43,15 @@ export function Register(){
   const [category, setCategory] = useState({
     key: 'category',
     name: 'Categoria'
+
   })
+  const dataKey = "@gofinances:transactions";
+  const  {navigate}: NavigationProp<ParamListBase> = useNavigation();
 
   const {
     control,
     handleSubmit,
+    reset,
     formState: {errors}
   } = useForm({
     resolver: yupResolver(schema)
@@ -58,11 +65,11 @@ export function Register(){
     setCategoryModalOpen(false);
   }
 
-  function handleTransactionsTypeSelect(type: 'up' | 'down'){
+   function handleTransactionsTypeSelect(type: 'up' | 'down'){
       setTransactionType(type);
   }
 
-  function handleRegister(form: FormData){
+  async function handleRegister(form: FormData){
     if(!transactionType)
     return Alert.alert('Selecione o tipo da transação')
 
@@ -71,16 +78,63 @@ export function Register(){
 
 
 
-    const data ={
+    const newTransaction ={
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
       transactionType,
-      category: category.key
+      category: category.key,
+      date: new Date()
     }
-    console.log(data)
+    console.log(newTransaction)
+    try {
+      const data = await AsyncStorage.getItem(dataKey);
+      const currentData = data ? JSON.parse(data) : [];
+
+      const dataFormated = [
+        ...currentData,
+        newTransaction
+    ]
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated))
+      reset();
+      setTransactionType('')
+      setCategory({
+        key: 'category',
+        name: 'Categoria'
+      })
+      
+      navigate('Listagem')
+
+
+      
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Nao foi possivel salvar")
+      
+    }
+
+
+
+
   }
+  // useEffect(() =>{
+  //   async function loadData() {
+  //     const data = await AsyncStorage.getItem(dataKey);
+  //   console.log(data!)
+  //   }
+
+
+  //   loadData();
+    // async function removeAll() {
+    //   AsyncStorage.removeItem(dataKey)
+      
+    // }
+    // removeAll()
+  // })
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
         <Header>
           <Title>Cadastro</Title>
@@ -135,6 +189,7 @@ export function Register(){
         </Modal>
 
       </Container>
+      </TouchableWithoutFeedback>
   );
 }
 
