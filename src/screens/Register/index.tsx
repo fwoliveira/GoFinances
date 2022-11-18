@@ -65,7 +65,7 @@ export function Register(){
     setCategoryModalOpen(false);
   }
 
-   function handleTransactionsTypeSelect(type: 'up' | 'down'){
+   function handleTransactionsTypeSelect(type: 'positive' | 'negative'){
       setTransactionType(type);
   }
 
@@ -82,7 +82,7 @@ export function Register(){
       id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
-      transactionType,
+      type: transactionType,
       category: category.key,
       date: new Date()
     }
@@ -92,8 +92,8 @@ export function Register(){
       const currentData = data ? JSON.parse(data) : [];
 
       const dataFormated = [
-        ...currentData,
-        newTransaction
+        newTransaction,
+        ...currentData
     ]
 
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated))
@@ -160,13 +160,13 @@ export function Register(){
               <TransactionTypeButton 
                 type='up'
                 title='Income'
-                onPress={ () => handleTransactionsTypeSelect('up')}
+                onPress={ () => handleTransactionsTypeSelect('positive')}
                 isActive={transactionType === 'up'}
                 />
               <TransactionTypeButton 
                 type='down'
                 title='Outcome'
-                onPress={ () => handleTransactionsTypeSelect('down')}
+                onPress={ () => handleTransactionsTypeSelect('negative')}
                 isActive={transactionType === 'down'}
                 />
             </TransactionsTypes> 
