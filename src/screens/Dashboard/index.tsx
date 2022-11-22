@@ -1,8 +1,11 @@
 import React,{useCallback, useEffect, useState } from 'react'
+import { ActivityIndicator } from 'react-native';
 import { HighlightCard } from '../../components/HighlightCard'
 import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import { useTheme } from 'styled-components';
+import LoadingAnimator from '../../components/LoadingAnimation/index';
 
 
 
@@ -20,6 +23,7 @@ import {
   Transactions,
   Title,
   TransactionList,
+  LoadContainer
 
 } from './styles';
 
@@ -75,8 +79,12 @@ export function Dashboard() {
     //   }      
 
     // ]
+
+
+    const [isLoading, setIsLoading] = useState(true)
     const[ transaction , setTransaction] = useState<DataListProps[]>([])
     const [highlightData , setHighlightData]= useState <HighlightData>({}as HighlightData)
+    const theme = useTheme();
     async function loadTransaction () {
       const dataKey = "@gofinances:transactions";
       const response = await AsyncStorage.getItem(dataKey);
@@ -145,6 +153,7 @@ export function Dashboard() {
 
       } 
      })
+     setIsLoading(false);
     }
     useEffect(()=>{
       loadTransaction();
@@ -162,6 +171,13 @@ export function Dashboard() {
 
     return (
       <Container>
+        {
+          isLoading ? <LoadContainer> 
+            {/* <ActivityIndicator color={theme.colors.blue} size="large" /> */}
+            <LoadingAnimator/>
+          
+           </LoadContainer> : <>
+        
         <Header>
           <UserWrapper>
 
@@ -210,7 +226,10 @@ export function Dashboard() {
             }
             
           />
-        </Transactions>
+        </Transactions> 
+        </>
+        }
+
 
       </Container>
     )
