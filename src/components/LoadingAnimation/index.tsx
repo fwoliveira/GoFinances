@@ -7,7 +7,7 @@ export default function LoadingAnimator() {
   return (
     <Container>
         <LottierView
-            source= {require('../../assets/pie-chart.json')}
+            source= {require('../../assets/spinning-pie-chart.json')}
             style={{height:300}}
             resizeMode="contain"
             loop
