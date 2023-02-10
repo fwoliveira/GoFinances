@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
 import { Platform } from 'react-native';
 import { 
     Container,
@@ -13,7 +13,7 @@ import {
 
 import { RFPercentage } from "react-native-responsive-fontsize";
 
-// import { useAuth } from '../../hooks/auth';
+import { useAuth } from '../../hooks/auth';
 
 //https://github.com/kristerkari/react-native-svg-transformer
 //https://github.com/react-native-svg/react-native-svg#installation
@@ -26,8 +26,15 @@ import Google from '../../assets/svg/google.svg';
 import Apple from '../../assets/svg/apple.svg';
 
 import { SignInSocialButton } from '../../components/SignInSocialButton';
+import { AuthContext } from './../../Utils/AuthContext';
 
 export function SignIn(){
+
+    const data = useAuth();
+    console.log(data);
+
+
+
     // const [isLoading, setIsLoading] = useState(false);
     // const { signInWithGoogle, signInWithApple } = useAuth();
 
